@@ -1,0 +1,99 @@
+adc8ch
+1/60ごとにADC１～８の取得データをホストPCに入力する。
+
+おおまかな処理ルーチン
+・ハードウェアとADCの初期化
+・USBのステータス待ち(※１）
+　・ADCの取得（０～７）
+　・取得した値の加工
+　・データをUARTで送信
+　・データをUARTで受信
+　・コマンドをパース
+
+新しく作る処理
+・タイマカウンタ。 割り込みで規定時間ごとにカウンタ変数がインクリメントされる
+・ADCドライバ
+
+移植する処理（修正なし）
+UARTドライバ （ボーレートを修正。最初はmega2560と38400で直接通信）
+PIPEサービス
+コマンドパーサー
+GPIOドライバ
+
+ADCのレジスタ設定
+○ADMUX - A/D多重器選択ﾚｼﾞｽﾀ (ADC Multiplexer Select Register)
+
+ﾋﾞｯﾄ7,6 - REFS1,0 : 基準電圧選択 (Reference Select Bits 1, 0)
+[0,1] AVCC (内部基準電圧は切り離され、AREFにﾃﾞｶｯﾌﾟ用ｺﾝﾃﾞﾝｻが接続できます。)
+
+ﾋﾞｯﾄ5 - ADLAR : 左揃え選択 (ADC Left Adjust Result)
+[0] 右揃え
+
+ﾋﾞｯﾄ4～0 - MUX4～0 : A/Dﾁｬﾈﾙ選択 (Analog Channel Select Bits 4～0)
+[00000]ADC8 ～ [00111]ADC8 の範囲を常に選択（ADCCH 8～15）
+最上位ビットの１は、ADCSRBレジスタのMUX5で指定する
+
+
+○ADCSRA - A/D変換 制御/状態ﾚｼﾞｽﾀA (ADC Control and Status Register A)
+ﾋﾞｯﾄ7 - ADEN : A/D許可 (ADC Enable)
+許可中 1
+
+ﾋﾞｯﾄ6 - ADSC : A/D変換開始 (ADC Start Conversion)
+WR:ADC変換開始時 1
+RD:ADC変換完了時 0
+
+ﾋﾞｯﾄ5 - ADATE : A/D変換自動起動許可 (ADC Auto Trigger Enable)
+禁止 0
+
+ﾋﾞｯﾄ4 - ADIF : A/D変換完了割り込み要求ﾌﾗｸﾞ (ADC Interrupt Flag)
+禁止 0
+
+ﾋﾞｯﾄ3 - ADIE : A/D変換完了割り込み許可 (ADC Interrupt Enable)
+禁止 0
+
+ﾋﾞｯﾄ2～0 - ADPS2～0 : A/D変換ｸﾛｯｸ選択 (ADC Prescaler Select Bits)
+[010] CK/4  カスタマイズ要素
+
+
+○ADCSRB - A/D変換 制御/状態ﾚｼﾞｽﾀB (ADC Control and Status Register B)
+ﾋﾞｯﾄ7,5,4 - Res : 予約 (Reserved Bits)
+[0]
+
+ﾋﾞｯﾄ3 - MUX5 : A/Dﾁｬﾈﾙ選択ﾋﾞｯﾄ5 (Analog Channnel Select Bit 5)
+[1]
+
+ﾋﾞｯﾄ2～0 - ADTS2～0 : A/D変換自動起動要因選択 (ADC Auto Trigger Source)
+連続変換動作 [000]
+
+○ADCH,ADCL - A/Dﾃﾞｰﾀ ﾚｼﾞｽﾀ (ADC Data Register)
+RD:ADCH[1:0] ADCL[7:0]
+
+○DIDR0 - ﾃﾞｼﾞﾀﾙ入力禁止ﾚｼﾞｽﾀ0 (Digital Input Disable Register 0)
+N/A （全て 初期値0）
+
+DIDR2 - ﾃﾞｼﾞﾀﾙ入力禁止ﾚｼﾞｽﾀ2 (Digital Input Disable Register 2)
+[11111111] 全てデジタル入力禁止
+
+
+●制御
+・初期化
+ADMUXの基準電圧レジスタをAVCCに設定（0x40）
+ADCSRBに0x08をセット(0x08)
+ADCSRAのADENビットを1にセット、ビット2～0にCK/4をセット(0x82)
+
+ADMUX = (0<<REFS1)|(1<<REFS0);
+ADCSRB = (1<<MUX5);
+ADCSRA = (1<<ADEN)|(1<<ADPS1);
+
+・値の取得
+ADSCビットが1であればAD変換中（処理異常終了）
+ADCSRBに0x08をセット、ADMUXの4:0ビットにADCチャネルを設定
+ADSCビットをチェックし、0であれば値を取得する。
+
+if ( ADCSRA & (1<<ADSC) != 0 ) { adc is wokring. }
+ADCSRB = (1<<MUX5);
+ADMUX = (0<<REFS1)|(1<<REFS0)|(ADCch & 0x07);
+ADCSRA = (1<<ADEN)|(1<<ADPS1)|(1<<ADSC);
+
+data = ADCW
+

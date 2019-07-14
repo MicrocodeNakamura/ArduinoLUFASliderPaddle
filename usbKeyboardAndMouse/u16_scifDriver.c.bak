@@ -1,0 +1,120 @@
+/*
+ * u16Driver.c
+ *
+ * Created: 2018/02/06 1:35:32
+ * Author : ya_nakamura
+ */ 
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <stdio.h>
+#include "u16_scifDriver.h"
+#include "ringBuffer.h"
+#include "pipe.h"
+
+// static void uart_write ( unsigned char c );
+static void rx_handler( void );
+
+static InterruptCallbackHandler uartRXint = NULL;
+
+/* バッファオーバーフローしたデータの量がカウントアップされる */
+static hPipe_t scif_pipe_id = PIPE_INVALID;
+static uint16_t readBufferOverflow = 0;
+
+/* Interrupt vector registration. ----- */
+
+/**
+  \brief UART機能の受信ハンドラ。 受信ハードウェア割り込み契機で呼び出される\n
+
+  指定された受信パイプのリングバッファに受信データを格納し、受信処理\n
+  リクエストを発行する\n
+
+\retval	なし
+**/
+ISR(USART1_RX_vect){
+	/* uartRXint is function pointer. */
+	if ( uartRXint != NULL ){ uartRXint(); }
+}
+
+/**
+  \brief UART機能の受信ハンドラ。 受信ハードウェア割り込み契機で呼び出される\n
+
+  指定された受信パイプのリングバッファに受信データを格納し、受信処理\n
+  リクエストを発行する\n
+
+\retval	なし
+**/
+/* interrupt handler ----- */
+static void rx_handler( void ){
+	unsigned char c;
+
+	c = UDR1;         // read rx receive buffer
+	/* data write to ring buffer. */
+
+	/* 送信元ID、送信先パイプID、データアドレス、転送バイト数 */
+	if ( setRxDataFromPipe( 0, scif_pipe_id, &c , 1 ) == 0 ){			
+		readBufferOverflow++;
+	} else {
+		/* 受信処理リクエスト発行 */
+		reqRxPipe( 0, scif_pipe_id, 1 );		
+	}
+}
+
+
+//-------------------------------------------
+// Section UART
+//-------------------------------------------
+void init_UART ( hPipe_t pipe_id ){
+	PIND = 0xff;
+	DDRD = 0x80;
+
+	// set Baudrate to 115.2kbps
+	UBRR1H = 0;
+	UBRR1L = 102; // 9600 bps ok
+//	UBRR1L = 25;  // 38400 bps ok
+	/* 115.2Kbpsはクロックの交換が必要だが、USBを優先するためクロック交換は不可 */
+//	UBRR1L = 7;   // 115200 bps NG
+
+	UCSR1C = (1<<USBS1)|(3<<UCSZ10);
+	/* 送信及び受信と受信割り込みを有効化する */
+	UCSR1B = (1<<RXEN1)|(1<<TXEN1)|(1<<RXCIE1)|(0<<TXCIE1);
+	
+	uartRXint = rx_handler;
+	/* PIPE IDを保存 */
+	scif_pipe_id = pipe_id;
+
+	DDRB = 0xE0;
+}
+
+/* UARTにPipeを登録する。
+  データ送信時にはUART側の送信契機関数が呼び出され、
+  データ受信時には上位側の受信契機関数を呼び出す。
+  */
+void registPipeUART ( hPipe_t id ) {
+	scif_pipe_id = id;
+}
+
+/* 内部関数。 UARTの送信をレジスタレベルで行う */
+// static void uart_write ( unsigned char c ){
+void uart_write ( uint8_t c ){
+	unsigned char t;
+	do {
+		t = UCSR1A & (unsigned char)(1<<UDRE1);
+	} while ( t == 0 ); // Wating tx empty bit.
+	UDR1 = c;
+}
+
+/* Ring buffer に格納された送信データを全てUARTで送信する */
+void flashUARTRingBuffer( hPipe_t id ) {
+	uint8_t data[18];
+	uint16_t size, i;
+	size = getTxPipeDataSize( id );
+	while ( size != 0 ){
+		if ( size > 16 ) { size = 16; }
+		size = getTxDataFromPipe( id, data, size);
+		for ( i = 0 ; i < size ; i++ ) {
+			uart_write( data[i] );
+		}
+		size = getTxPipeDataSize( id );
+	}
+}
