@@ -58,13 +58,12 @@ UARTからデータを受信すると、parser処理を呼び出す
 **/
 void ApplicationTask ( bool_t fire )
 {
-	uint8_t i;
-	uint16_t datas[8];
+	uint16_t datas[USED_ADC_CH];
 	
 	if ( fire == TRUE ) {
-		for ( i = 0 ; i < 8 ; i++ ) {		
-			(void)getADCValue ( i+8, &datas[i] );
-		}
+		(void)getADCValue ( ADC_CH_A, &datas[0] );
+		(void)getADCValue ( ADC_CH_B, &datas[1] );
+
 		/* データ送信処理 */
 		outputResult ( scifHandle, datas );
 	}
@@ -76,7 +75,6 @@ void ApplicationTask ( bool_t fire )
 
 		/* パーサー処理の呼び出し
 			パーサ内部でデータ送信要求があった場合、パーサが送信シグナルをセットする */
-		(void)processParser( scifHandle );
 	} else if ( ( sig & TX_SIG ) != 0 ) {
 		sig &= (uint8_t)~TX_SIG;
 		/* データ送信機能がデータを送信するので、このイベントフラグではなにもしない */

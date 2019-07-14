@@ -29,25 +29,6 @@ typedef enum {
 /* parserの初期化処理 */
 void initParser( hPipe_t id );
 
-/* 受信リングバッファからデータを取得してコマンドをParseする
-   送信データをリングバッファに格納したら、引数のハンドルに送信要求を発行する */
-bool_t processParser ( hPipe_t id );
-
-bool_t processCommand( hPipe_t id, uint8_t *buf, uint16_t size );
-
-/* メモリチェック */
-bool_t processCommand_MemoryCheck( hPipe_t id, uint8_t *buf );
-
-
-/* ダンプリスト形式に編集された送信データを格納する */
-void outDataDumpStyle( hPipe_t id, uint8_t *data, uint16_t size, uint16_t offset );
-
-/* 送信コールバック関数 データ送信のシグナルを上げる */
-void outDataRawStyle( hPipe_t id, uint8_t *data, uint16_t size );
-
-/* 送信コールバック関数 データ送信のシグナルを上げる */
-void outDataStringStyle( hPipe_t id, uint8_t *data );
-
 void outputResult ( hPipe_t id, uint16_t *data );
 
 #endif /* __PARSER_H__ */
