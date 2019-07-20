@@ -12,9 +12,10 @@
 #include "typedef.h"
 #include "pipe.h"
 
-#define USED_ADC_CH	2
-#define ADC_CH_A	14
-#define ADC_CH_B	15
+#define USED_ADC_CH	3
+#define ADC_CH_A	13
+#define ADC_CH_B	14
+#define ADC_CH_C	15
 
 /* event flag */
 #define RX_SIG 0x01	/**< UART 受信イベントシグナル */

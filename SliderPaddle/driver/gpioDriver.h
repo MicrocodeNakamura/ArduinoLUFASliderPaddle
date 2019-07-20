@@ -29,6 +29,15 @@ typedef enum {
 	 IOID_PORT_MAX
 } ioid_t;
 
+#define BIT0_VAL 0x01
+#define BIT1_VAL 0x02
+#define BIT2_VAL 0x04
+#define BIT3_VAL 0x08
+#define BIT4_VAL 0x10
+#define BIT5_VAL 0x20
+#define BIT6_VAL 0x40
+#define BIT7_VAL 0x80
+
 /**
   gpioモードのセット。 GPIO_PREPAREとGPIO_STATE_MAX以上は選択不可。
   GPIO_STATE_PREPARE,	ポート未初期化

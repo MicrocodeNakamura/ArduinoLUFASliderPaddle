@@ -14,6 +14,7 @@
 #include "parser.h"
 
 #include "adcDriver.h"
+#include "timerDriver.h"
 
 hPipe_t rxPipe;
 hPipe_t txPipe;
@@ -59,10 +60,20 @@ UARTからデータを受信すると、parser処理を呼び出す
 void ApplicationTask ( bool_t fire )
 {
 	uint16_t datas[USED_ADC_CH];
+//	uint16_t now;
 	
 	if ( fire == TRUE ) {
-		(void)getADCValue ( ADC_CH_A, &datas[0] );
-		(void)getADCValue ( ADC_CH_B, &datas[1] );
+		if ( getADCValue ( ADC_CH_A, &datas[0] ) != TRUE ) {
+			while(1);
+		}
+				
+		if ( getADCValue ( ADC_CH_B, &datas[1] ) != TRUE ) {
+			while(1);
+		}
+
+		if ( getADCValue ( ADC_CH_C, &datas[2] ) != TRUE ) {
+			while(1);
+		}
 
 		/* データ送信処理 */
 		outputResult ( scifHandle, datas );

@@ -10,6 +10,7 @@
 #include "typedef.h"
 
 #include "adcDriver.h"
+#include "gpioDriver.h"
 
 /* ADC 分解能の初期値は10bit */
 static adcMode_t resolution[MAX_ADC_CH];
@@ -24,7 +25,7 @@ void initADC( uint16_t ch )
 	}
 	
 	ADMUX = (0<<REFS1)|(1<<REFS0);	/* AVCCを基準電源に設定 */
-	ADCSRA = (1<<ADEN)|(1<<ADPS1);	/* ADCの電源ON、A/D変換クロック選択(Clk/4) */
+	ADCSRA = (1<<ADEN)|(0<<ADPS2)|(1<<ADPS1)|(0<<ADPS0);	/* ADCの電源ON、A/D変換クロック選択(Clk/4) */
 	DIDR0 = ch & 0x00ff;
 	DIDR2 = (uint8_t)((( ch & 0xff00 ) >> 8) & 0xff);
 }
@@ -46,8 +47,8 @@ bool_t setADCResolution ( uint8_t ch, adcMode_t mode )
 bool_t getADCValue ( uint8_t ch, uint16_t *data )
 {
 	bool_t ret = FALSE;
-	uint16_t i, outdata;
-	
+	uint16_t outdata;
+	uint16_t i;
 
 	/* チャネルが範囲内かをチェックする */
 	if ( ch < MAX_ADC_CH ) {
@@ -61,11 +62,15 @@ bool_t getADCValue ( uint8_t ch, uint16_t *data )
 				ADCSRB = (0<<MUX5);
 			}
 
-			/* ADC読み出しチャネルセット */
-			ADMUX = (0<<REFS1)|(1<<REFS0)|(ch & 0x07);
+			/* ADC読み出しチャネルセット AREF(REFS:00)を選択 */
+			ADMUX = (0<<REFS1)|(0<<REFS0)|(ch & 0x07);
+
+			/* ADSCを1にセットして、ADC変換開始 (空読み) */
+			ADCSRA = (1<<ADEN) | (1<<ADPS1)|(1<<ADSC);				
+			while ( (ADCSRA & (1<<ADSC)) != 0 );
 
 			/* ADSCを1にセットして、ADC変換開始 */
-			ADCSRA = (1<<ADEN)|(1<<ADPS1)|(1<<ADSC);				
+			ADCSRA = (1<<ADEN) | (1<<ADPS1)|(1<<ADSC);				
 		
 			/* タイムアウト時間までに変換が完了していれば正常終了を返す */
 			for ( i = 0 ; i < ADC_TIMEOUT ; i++ ){
@@ -83,6 +88,8 @@ bool_t getADCValue ( uint8_t ch, uint16_t *data )
 					break;
 				}
 			}
+		} else {
+			ret = FALSE;
 		}
 	}
 	return ret;
