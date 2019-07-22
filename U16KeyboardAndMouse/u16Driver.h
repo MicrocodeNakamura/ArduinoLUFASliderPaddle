@@ -11,11 +11,13 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdio.h>
+
+typedef unsigned char bool_t;
 /************************************************************************/
 /* configure area                                                                      */
 /************************************************************************/
 #define PORT_SCAN_TIMING_MS 10
-#define DEBUG_CHECK_USB_REPORT
+#undef DEBUG_CHECK_USB_REPORT
 #undef MAIN_TASK_KILL_SWITCH_ENABLE
 
 /* Heartbeat led port setting */
@@ -61,6 +63,9 @@ void flashUARTRingBuffer( void );
 #define PB5_IN() (((PINB&(1<<5))!=0)?1:0)
 #define PB6_IN() (((PINB&(1<<6))!=0)?1:0)
 #define PB7_IN() (((PINB&(1<<7))!=0)?1:0)
+
+void init_GPIO ( void );
+bool_t isUSBDeviceEnable( void );
 
 /* section ADC ----- */
 void init_ADC (void);

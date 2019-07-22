@@ -218,48 +218,34 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	{
 		USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
 
-#ifdef DEBUG_CHECK_USB_REPORT
-{
-	static unsigned char led = 0;
-	unsigned char reg;
-	reg = PORTB;
-	if ( led == 0 ){
-		led = 1;
-		reg |= 1 <<(PORTB6);
-		} else {
-		reg &= ~(1 <<(PORTB6));
-		led = 0;
-	}
-	PORTB = reg;
-}
-#endif /* DEBUG_CHECK_USB_REPORT */
-
-#if 0
-		if ( KeyEnterStatus == 1 )
+		/* USB Deviceのenalble端子（PDB6）が無効ならDeviceのレポートを生成しない。 */
+		if ( isUSBDeviceEnable() != 1 )
 		{
+			KeyboardReport->KeyCode[0] = 0x00;
+			*ReportSize = sizeof(USB_KeyboardReport_Data_t);
+			return true;
+		} else {
+			/* マスタからのUSBキー入力の問い合わせ応答生成処理 */
+			/* もし、処理が必要なければ return 0; */
 			KeyboardReport->KeyCode[0] = 0x11; // 'n'
-		} else if ( KeyEnterStatus == 2 ) {
-			KeyboardReport->KeyCode[0] = 0;    // key release
-			KeyEnterStatus = 0;
+			*ReportSize = sizeof(USB_KeyboardReport_Data_t);
+			return true;
 		}
-#else
-		return 0;
-#endif
-		*ReportSize = sizeof(USB_KeyboardReport_Data_t);
-		return false;
 	}
 	else
 	{
 		USB_MouseReport_Data_t* MouseReport = (USB_MouseReport_Data_t*)ReportData;
 
 		/* もし、処理が必要なければ return 0; */
-		if ( KeyEnterStatus == 1 )
+//		if ( KeyEnterStatus == 1 )
+		if ( isUSBDeviceEnable() != 1 )
 		{
+		} else {
 			  MouseReport->X = 100;
 			  MouseReport->Y = 100;
 			  MouseReport->wheel = 1;
-			} else if ( KeyEnterStatus == 2 ) {
-			KeyEnterStatus = 0;
+//			} else if ( KeyEnterStatus == 2 ) {
+//			KeyEnterStatus = 0;
 		}
 
 		*ReportSize = sizeof(USB_MouseReport_Data_t);

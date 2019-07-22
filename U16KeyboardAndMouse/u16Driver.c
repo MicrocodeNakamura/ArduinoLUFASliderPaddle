@@ -65,6 +65,7 @@ void timer_handler( void ) {
 	if ( time < PORT_SCAN_TIMING_MS ) {
 		time++;
 	} else {
+#if 0
 		if ( PB4_IN() != 1 ){
 			/* ボタン押下中は1秒おきにUSBのキーコードを発行 */
 			if ( KeyEnterStatus == 0 ) {
@@ -78,6 +79,7 @@ void timer_handler( void ) {
 			}
 		}
 		time = 0;
+#endif
 	}
 }
 
@@ -112,29 +114,37 @@ void enableInterrupt( void ){
 	asm volatile( "sei" );
 }
 
-void init_UART ( InterruptCallbackHandler handler ){
+void init_GPIO( void )
+{
 	PIND = 0xff;
 	DDRD = 0x80;
+}
 
+/* USB Device のEnable判定処理 */
+bool isUSBDeviceEnable( void )
+{
+	/* PB6 が HならUSB Device Enable */
+	if ( PB6_IN() != 1 )
+	{
+		return 0;
+	}
+	return 1;
+}
+
+void init_UART ( InterruptCallbackHandler handler ){
 	// set Baudrate to 115.2kbps
 	UBRR1H = 0;
-	UBRR1L = 102; // 9600 bps ok
-	UBRR1L = 25;  // 38400 bps ok
-	//	UBRR1L = 7;   // 115200 bps NG
+	UBRR1L = 12;  // // 76800 bps
 
 	UCSR1C = (1<<USBS1)|(3<<UCSZ10);
+	/* 送信及び受信と送信受信割り込みを有効化する */
 	UCSR1B = (1<<RXEN1)|(1<<TXEN1)|(1<<RXCIE1)|(0<<TXCIE1);
-	
+
 	uartRXint = handler;
 	rxRingBufHandle = ring_buffer_init( uartRxBuf, sizeof(uartRxBuf) );
 	txRingBufHandle = ring_buffer_init( uartTxBuf, sizeof(uartTxBuf) );
 
 	DDRB = 0xE0;
-/* gpio 割り込み */
-#if 0
-	PCICR = 0x01;
-	PCMSK0 = 0x10;
-#endif
 }
 
 /* 内部関数。 UARTの送信をレジスタレベルで行う */
@@ -219,6 +229,9 @@ void init_u16Driver(void)
 {
 	/* UART intialize */
 	init_UART(&rx_handler);
+
+	/* GPIO initilaize */
+	init_GPIO();
 
 	/* time tick for 1[ms] */
 	init_Timer( &timer_handler, TIMER_CLKDIV_64, 250 );

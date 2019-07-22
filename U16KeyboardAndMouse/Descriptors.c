@@ -37,6 +37,8 @@
 
 #include "Descriptors.h"
 
+/* change */
+
 /** HID class report descriptor. This is a special descriptor constructed with values from the
  *  USBIF HID class specification to describe the reports and capabilities of the HID device. This
  *  descriptor is parsed by the host and its contents used to determine what data (and in what encoding)
@@ -58,6 +60,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
 //	HID_DESCRIPTOR_MOUSE(-1, 1, -1, 1, 3, false)
 //	HID_DESCRIPTOR_MOUSE(-128, 127, -128, 127, 3, false)
 	HID_DESCRIPTOR_MOUSE(-128, 127, -128, 127, 3, true)
+/* debug */
 
 };
 
@@ -278,6 +281,7 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 					Size    = sizeof(KeyboardReport);
 					break;
 				case INTERFACE_ID_Mouse:
+					/* Change */
 					Address = &MouseReport;
 					Size    = sizeof(MouseReport);
 					break;
