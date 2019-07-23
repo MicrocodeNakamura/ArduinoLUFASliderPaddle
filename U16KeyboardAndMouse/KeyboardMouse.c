@@ -36,6 +36,8 @@
 
 #include "KeyboardMouse.h"
 #include "u16Driver.h"
+#include "u16_scifDriver.h"
+#include "pipe.h"
 
 /** Buffer to hold the previously generated Keyboard HID report, for comparison purposes inside the HID class driver. */
 static uint8_t PrevKeyboardHIDReportBuffer[sizeof(USB_KeyboardReport_Data_t)];
@@ -87,37 +89,63 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 			},
 	};
 
+void init_work( void );
+
+void init_work( void )
+{
+}
+
+static bool_t scif_rx_flag = FALSE;
+static bool_t scif_tx_flag = FALSE;
+
+/* return 0 - 正常終了 */
+static uint8_t rxCallback( hPipe_t id, hPipe_t previd, uint16_t data ) {
+	/* 受信データのトリガをセットする */
+	scif_rx_flag = TRUE;
+	return 0;
+}
+
+static uint8_t txCallback( hPipe_t id, hPipe_t previd, uint16_t data ) {
+	/* 送信データのトリガをセットする */
+	scif_tx_flag = TRUE;
+	return 0;
+}
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */
 int main(void)
 {
+	hPipe_t pipe_id;
+
 	SetupHardware();
 	init_u16Driver();
 
+	init_work();
+	SetupHardware();
+	
+	initMainPipe();
+	/* PIPEの受信契機、送信契機検知コールバック関数が引数 */
+	pipe_id = openDataPipe( rxCallback, txCallback );
+
+	init_UART( pipe_id );
+	registPipeUART ( pipe_id );
+
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	GlobalInterruptEnable();
+	enableInterrupt();
 
 #ifndef MAIN_TASK_KILL_SWITCH_ENABLE
 	while ( breaker == 0 )
 	{
 		/* driver main routine */
-		//u16DriverMain();
 		cli();
 		{
-			uint8_t c;
-			if ( readUARTRingBuffer( &c, 1) == 1 ){
-				writeUARTRingBuffer( &c, 1);
-				flashUARTRingBuffer();
-			}
 		}
 		sei();
 
 		HID_Device_USBTask(&Keyboard_HID_Interface);
 		HID_Device_USBTask(&Mouse_HID_Interface);
 		USB_USBTask();
-		
-		flashUARTRingBuffer();
 	}
 #else
 	/* USB task was killed. */
@@ -153,6 +181,9 @@ void SetupHardware()
 	Joystick_Init();
 	LEDs_Init();
 	USB_Init();
+
+
+
 }
 
 /** Event handler for the library USB Connection event. */

@@ -30,24 +30,6 @@ extern uint8_t debugFlag;
 /* Interrupt ----- */
 typedef void (*InterruptCallbackHandler)(void);
 
-void disableInterrupt( void );
-void enableInterrupt( void );
-
-/* section timer ----- */
-/* base system clock 16.00MHz - pre-scaler */
-#define TIMER_CLKDIV_0    (unsigned char)(0x00)
-#define TIMER_CLKDIV_1    (unsigned char)(0x01)
-#define TIMER_CLKDIV_8    (unsigned char)(0x02)
-#define TIMER_CLKDIV_64   (unsigned char)(0x03)
-#define TIMER_CLKDIV_256  (unsigned char)(0x04)
-#define TIMER_CLKDIV_1024 (unsigned char)(0x05)
-
-/* section UART ----- */
-void init_UART ( InterruptCallbackHandler handler );
-uint8_t readUARTRingBuffer( uint8_t *buf, uint8_t size );
-uint8_t writeUARTRingBuffer( uint8_t *buf, uint8_t size );
-void flashUARTRingBuffer( void );
-
 /* section GPIO ----- */
 #define PB4_OUT_HIGH() PORTB |= (1<<4)
 #define PB5_OUT_HIGH() PORTB |= (1<<5)

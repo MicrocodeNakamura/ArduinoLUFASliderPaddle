@@ -322,10 +322,52 @@
     <Compile Include="Descriptors.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="pipe.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pipe.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ringBuffer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ringBuffer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ring_buffer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="typedef.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="u16App.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="u16App.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="u16Driver.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="u16Driver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="u16_commonDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="u16_commonDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="u16_scifDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="u16_scifDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="u16_timerDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="u16_timerDriver.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\asf.h">

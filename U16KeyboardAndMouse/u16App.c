@@ -3,9 +3,10 @@
  KeyboardMouse.c のタスクループから呼び出される処理。
 */
 
-
+#include "typedef.h"
 /* UART受信データのパース処理 */
 uint8_t parseReceiveData ( void ) {
+#if 0
 	static parseState_t parseState = PARSE_STATE_PREINIT;
 	static uint8_t rest = 0;
 	static uint8_t cmd = 0;
@@ -51,7 +52,8 @@ uint8_t parseReceiveData ( void ) {
 	
 	}
 	
-	return ret;
+#endif
+		return 0;
 }
 
 

@@ -555,9 +555,11 @@
 			{
 				UEDATX = Data;
 				/* debug */
+#ifdef FEATURE_DEBUG
 				if ( debugFlag != 0 ) {
 					writeUARTRingBuffer( (uint8_t *)&Data, 1 );
 				}
+#endif
 			}
 
 			/** Discards one byte from the currently selected endpoint's bank, for OUT direction endpoints.
