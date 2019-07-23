@@ -111,7 +111,7 @@ static uint8_t txCallback( hPipe_t id, hPipe_t previd, uint16_t data ) {
 /* 38.4kbps TXD1(PWML1) -> com(RX), RXD(PWML0) -> com(TXD) */
 int main(void)
 {
-	uint8_t c;
+	uint8_t c,i;
 	uint16_t wk;
 	hPipe_t pipe_id;
 	
@@ -163,9 +163,16 @@ int main(void)
 			/* 最大データサイズ16バイトでバースト送信 */
 			if ( size > 16 ) { size = 16; }
 			size = getRxDataFromPipe( pipe_id, data, size);
-			data[size] = '\0';
+#if 0
+			data[size] = 'a';			
+			data[size+1] = '\0';
 			/* USB送信処理呼び出し */
 			fputs((const char *)data, &USBSerialStream);
+#else
+			for ( i = 0 ; i < size ; i++ ){
+				fputc((const char *)data[i], &USBSerialStream);			
+			}
+#endif
 			scif_rx_flag = FALSE;
 		}
 		

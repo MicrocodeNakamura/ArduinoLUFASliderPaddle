@@ -6,8 +6,7 @@
 
 #include "timer.h"
 
-static uint8_t rct = 0;
-static uint8_t lct = 0;
+static uint8_t rotalyCount = 0;
 
 ISR(PCINT0_vect){
 	/* uartRXint is function pointer. */
@@ -34,9 +33,9 @@ void isrRotary ( void ) {
 		val = getGPIO ( IOID_PORT_B );
 		/* 割り込み発生後数十us後のもう一方のIO状態から回転方向を察知 */
 		if ( ( val & BIT5_VAL ) != 0 ) {
-			rct++;
+			rotalyCount++;
 		} else {
-			lct++;
+			rotalyCount--;
 		}
 	}
 }
@@ -48,8 +47,11 @@ void initRotary ( void  )
 	PCMSK0 = PCMSK0 | ( 1 << PCINT6 );
 }
 
-uint16_t getRotaryCount ( void ) {
-	
+int8_t getRotaryCount ( void ) {
+	int8_t tmp;
+	tmp = rotalyCount;
+	rotalyCount = 0;
+	return tmp;
 }
 
 

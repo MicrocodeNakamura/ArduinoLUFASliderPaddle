@@ -112,8 +112,14 @@ void initParser( hPipe_t id )
 {
 }
 
+#ifdef FEATURE_ASCII_OUTPUT
 static uint8_t outDatas[ 8 + (4* USED_ADC_CH ) ];
+#else
+static uint8_t outDatas[ 6 + (2* USED_ADC_CH ) + 1 ];
+#endif
+
 void outputResult ( hPipe_t id, uint16_t *data ){
+#ifdef FEATURE_ASCII_OUTPUT
 	uint16_t tmp;
 	uint8_t i;
 	outDatas[0] = 'A';
@@ -142,5 +148,36 @@ void outputResult ( hPipe_t id, uint16_t *data ){
 	setTxDataToPipe ( (hPipe_t)0, id, outDatas , sizeof( outDatas ) );
 	setTxDataToPipe ( (hPipe_t)0, id, (uint8_t *)"\n" , 1 );
 	reqTxPipe ( (hPipe_t)0, id, sizeof( outDatas ) + 1);
+#else
+	/**
+	データサイズ     4
+	ADC２チャンネル  4
+	ロータリーSW     1 （符号付き、右方向正）
+	*/
+
+	uint16_t tmp;
+	uint8_t i;
+
+	/* データサイズ */
+	tmp = sizeof(outDatas) & 0x00ff;
+	outDatas[0] = 0xaa;
+	outDatas[1] = 0xaa;
+	outDatas[2] = 0;
+	outDatas[3] = 0;
+	outDatas[4] = 0;
+	outDatas[5] = (uint8_t)( tmp & 0x00ff );
+
+	/* ADCで取得するチャンネルは2ch分、14chと15ch */
+	for ( i = 0 ; i < USED_ADC_CH ; i++ ) {
+		outDatas[i*2 + 6 + 0] = ( data[i] >> 8 ) & 0x00ff;
+		outDatas[i*2 + 6 + 1] = data[i] & 0x00ff;
+	}
+
+	/* ロータリーエンコーダーの回転角数（signed） */
+	outDatas[6 + (2* USED_ADC_CH )] = getRotaryCount();
+
+	setTxDataToPipe ( (hPipe_t)0, id, outDatas , sizeof( outDatas ) );
+	reqTxPipe ( (hPipe_t)0, id, sizeof( outDatas ) );
+#endif /* FEATURE_ASCII_OUTPUT */
 }
 
