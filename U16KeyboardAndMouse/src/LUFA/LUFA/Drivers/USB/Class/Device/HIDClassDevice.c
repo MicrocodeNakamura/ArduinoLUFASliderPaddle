@@ -39,6 +39,8 @@
 
 //#include "u16Driver.h"
 
+extern USB_ClassInfo_HID_Device_t Keyboard_HID_Interface;
+
 void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
@@ -182,6 +184,8 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 
 		bool ForceSend         = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, HID_REPORT_ITEM_In,
 		                                                             ReportINData, &ReportINSize);
+		                                                             
+
 		bool StatesChanged     = false;
 		bool IdlePeriodElapsed = (HIDInterfaceInfo->State.IdleCount && !(HIDInterfaceInfo->State.IdleMSRemaining));
 
@@ -203,6 +207,7 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 			Endpoint_Write_Stream_LE(ReportINData, ReportINSize, NULL);
 
 			Endpoint_ClearIN();
+
 		}
 
 		HIDInterfaceInfo->State.PrevFrameNum = USB_Device_GetFrameNumber();

@@ -505,12 +505,14 @@
 					HID_RI_LOGICAL_MAXIMUM(16, MaxAxisVal), \
 					HID_RI_PHYSICAL_MINIMUM(16, MinPhysicalVal), \
 					HID_RI_PHYSICAL_MAXIMUM(16, MaxPhysicalVal), \
-					HID_RI_REPORT_COUNT(8, 0x03),           \
-					HID_RI_REPORT_SIZE(8, (((MinAxisVal >= -128) && (MaxAxisVal <= 127)) ? 8 : 16)), \
+					HID_RI_REPORT_COUNT(8, 0x03),           /* アイテムの個数 */ \
+/*					HID_RI_REPORT_SIZE(8, (((MinAxisVal >= -128) && (MaxAxisVal <= 127)) ? 8 : 16)),*/ \
+					HID_RI_REPORT_SIZE(8, 16), /* データ要素のサイズ。 ３つ全てのアイテムが影響を受ける */ \
 					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | (AbsoluteCoords ? HID_IOF_ABSOLUTE : HID_IOF_RELATIVE)), \
 															\
 				HID_RI_END_COLLECTION(0),                   \
 			HID_RI_END_COLLECTION(0)
+
 
 		/** \hideinitializer
 		 *  A list of HID report item array elements that describe a typical Vendor Defined byte array HID report descriptor,
@@ -652,12 +654,14 @@
 		 *
 		 *  Type define for a standard Boot Protocol Mouse report
 		 */
+
 		typedef struct
 		{
+			/* ２バイト通知を行うよう変更。 変更の影響を受けて、wheelも2バイト通知に変更。 */
 			uint8_t Button; /**< Button mask for currently pressed buttons in the mouse. */
-			int8_t  X; /**< Current delta X movement of the mouse. */
-			int8_t  Y; /**< Current delta Y movement on the mouse. */
-			int8_t  wheel; /**< wheel data. */
+			int16_t  X; /**< Current delta X movement of the mouse. */
+			int16_t  Y; /**< Current delta Y movement on the mouse. */
+			int16_t  wheel; /**< wheel data. */
 		} ATTR_PACKED USB_MouseReport_Data_t;
 
 		/** \brief Standard HID Boot Protocol Keyboard Report.

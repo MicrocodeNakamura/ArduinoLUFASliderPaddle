@@ -4,15 +4,38 @@
 */
 
 #include "typedef.h"
+#include "pipe.h"
+#include "u16App.h"
+
+#define MEGA2560_PACKETHEADER_SIZE 2
+
+/* 取得したadc値の保存用変数 */
+static uint16_t adc_pos = 0;
+static int8_t paddle = 0;
+
+static uint8_t size_err = 0;
+static uint8_t head_err = 0;
+
+uint16_t get_slider_pos( void )
+{
+	return adc_pos;	
+}
+
+int8_t get_paddle_val ( void )
+{
+	int8_t dummy = paddle;
+	/* paddle情報は検知割り込みごとに積算され、読み出すたびにリセットされる。 */
+	paddle = 0;
+	return dummy;	
+}
+
 /* UART受信データのパース処理 */
-uint8_t parseReceiveData ( void ) {
-#if 0
-	static parseState_t parseState = PARSE_STATE_PREINIT;
+uint8_t parseReceiveData ( hPipe_t pipe_id ) {
+	static parseState_t parseState = PARSE_STATE_INIT;
 	static uint8_t rest = 0;
-	static uint8_t cmd = 0;
-	static uint8_t head[2];
-	uint8_t ret = 0;
-	uint8_t i;
+	static uint8_t size[4];
+	static uint8_t payload[7];
+	uint8_t tmp;
 	
 	/* パーサーのイニシャライズ */
 	if ( parseState == PARSE_STATE_PREINIT ) {
@@ -27,39 +50,59 @@ uint8_t parseReceiveData ( void ) {
 		/* UARTの受信パケットを１バイト単位で読み出し */
 		while ( rest != 0 ) {
 			/* 受信データがなければ、ループ完了。 あれば未受信データ数を-1して再度読み出し */
-			if ( readUARTRingBuffer ( head[MEGA2560_PACKETHEADER_SIZE - rest] ,1 ) == 1 ) {
-				rest--;
+			if ( getRxDataFromPipe( pipe_id, &tmp, 1) == 1 ) {
+				if ( tmp != 0xaa ) {
+					/* ヘッダ2バイト読むまでパケットと認めない */
+					rest = MEGA2560_PACKETHEADER_SIZE;
+					head_err++;
+				} else {
+					rest--;
+				}
+				if ( rest == 0 ) {
+					/* 2バイト検知したので、残りのデータ読み出しステートへ */
+					rest = 0x04;
+					parseState = PARSE_STATE_SIZE;
+					break;
+				}
 			} else {
 				break;
 			}
 		}
-		
-		/* 未受信データ0で次のステートへ遷移 */
+	} else if ( parseState == PARSE_STATE_SIZE ) {
+		/* 4 バイトサイズデータ待ち */
+		rest -= getRxDataFromPipe( pipe_id, &size[sizeof(size) - rest], rest);
 		if ( rest == 0 ) {
-			/* 受信したデータのサニタリチェック */
-			if ( head[1] < 3 ) {
-				/* 次ステートのデータ長とコマンドを記録し次ステートへ */
-				cmd  = head[0];
-				rest = head[1];
+			/* サイズ値は0x0d固定 */
+			if ( (size[0] == 0x00) && (size[1] == 0x00) && (size[2] == 0x00) && (size[3] == 0x0d) ){
+				parseState = PARSE_STATE_PAYLOAD;
+				rest = 7;
 			} else {
-				/* データ長が2以下ならエラー　ステートを元に戻す。 */
-				ret = ERROR_PARSE_DATA_LENGTH;
-				parseState = PARSE_STATE_INIT;
+				parseState = PARSE_STATE_HEAD;
+				rest = 2;
+				size_err++;
 			}
 		}
 	/* PAYLOAD部分の受信 */
 	} else if ( parseState == PARSE_STATE_PAYLOAD ) {
-	
+		rest -= getRxDataFromPipe( pipe_id, &payload[sizeof(payload) - rest], rest);
+		if ( rest == 0 ) {
+			/* State を元に戻す */
+			parseState = PARSE_STATE_HEAD;
+			rest = 2;
+			
+			/* build data */
+			paddle += payload[6];
+			adc_pos = ( payload[2] << 8 ) + payload[3];
+		}
 	}
 	
-#endif
-		return 0;
+	return 0;
 }
 
 
 /* application main 処理 */
-void appMain ( void ) {
+void appMain ( hPipe_t pipe_id ) {
 	// pollIOPort();
 	
-	parseReceiveData();
+	parseReceiveData( pipe_id );
 }

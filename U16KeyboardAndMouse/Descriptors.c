@@ -37,6 +37,7 @@
 
 #include "Descriptors.h"
 
+#include "KeyboardMouse.h"
 /* change */
 
 /** HID class report descriptor. This is a special descriptor constructed with values from the
@@ -59,8 +60,14 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
 	 */
 //	HID_DESCRIPTOR_MOUSE(-1, 1, -1, 1, 3, false)
 //	HID_DESCRIPTOR_MOUSE(-128, 127, -128, 127, 3, false)
-	HID_DESCRIPTOR_MOUSE(-128, 127, -128, 127, 3, true)
-/* debug */
+
+#ifdef FEATURE_RASPI
+// for raspi
+	HID_DESCRIPTOR_MOUSE(-512, 511, -512, 511, 3, true)
+#else
+	/* 入力値範囲 0 - 1023のケース。 倍の範囲を入れる理由は不明 */
+	HID_DESCRIPTOR_MOUSE(-1024, 1023, -1024, 1023, 3, true)
+#endif
 
 };
 

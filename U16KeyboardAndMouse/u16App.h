@@ -8,6 +8,7 @@ typedef enum {
 	PARSE_STATE_PREINIT,
 	PARSE_STATE_INIT,
 	PARSE_STATE_HEAD,
+	PARSE_STATE_SIZE,
 	PARSE_STATE_PAYLOAD,
 	PARSE_STATE_MAX
 } parseState_t;
@@ -47,10 +48,16 @@ typedef struct {
 } cmdPacket_t;
 
 /* アプリケーションタスクメイン処理 */
-void appMain ( void );
+void appMain ( hPipe_t pipe_id );
 
 /* UART受信データのパース処理 */
-uint8_t parseReceiveData ( void );
+uint8_t parseReceiveData ( hPipe_t pipe_id );
+
+/* スライドボリュームのADC値を取得する */
+uint16_t get_slider_pos( void );
+
+/* パドルの回転方向と回転角を取得する */
+int8_t get_paddle_val ( void );
 
 /* IOポートのチェック処理 */
 // uint8_t pollIOPort ( void );

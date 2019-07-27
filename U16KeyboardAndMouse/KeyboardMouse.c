@@ -38,7 +38,7 @@
 #include "u16Driver.h"
 #include "u16_scifDriver.h"
 #include "pipe.h"
-
+#include "u16App.h"
 /** Buffer to hold the previously generated Keyboard HID report, for comparison purposes inside the HID class driver. */
 static uint8_t PrevKeyboardHIDReportBuffer[sizeof(USB_KeyboardReport_Data_t)];
 
@@ -140,6 +140,7 @@ int main(void)
 		/* driver main routine */
 		cli();
 		{
+			appMain ( pipe_id );
 		}
 		sei();
 
@@ -250,17 +251,41 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 		USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
 
 		/* USB Deviceのenalble端子（PDB6）が無効ならDeviceのレポートを生成しない。 */
+		*ReportSize = sizeof(USB_KeyboardReport_Data_t);
+		KeyboardReport->KeyCode[0] = 0x00;
+		KeyboardReport->KeyCode[1] = 0x00;
+		KeyboardReport->KeyCode[2] = 0x00;
+		KeyboardReport->KeyCode[3] = 0x00;
+		KeyboardReport->KeyCode[4] = 0x00;
+		KeyboardReport->KeyCode[5] = 0x00;
 		if ( isUSBDeviceEnable() != 1 )
 		{
-			KeyboardReport->KeyCode[0] = 0x00;
-			*ReportSize = sizeof(USB_KeyboardReport_Data_t);
 			return true;
 		} else {
 			/* マスタからのUSBキー入力の問い合わせ応答生成処理 */
 			/* もし、処理が必要なければ return 0; */
-			KeyboardReport->KeyCode[0] = 0x11; // 'n'
-			*ReportSize = sizeof(USB_KeyboardReport_Data_t);
-			return true;
+			int8_t i;
+			int8_t pad;
+			uint8_t enterkeycode;
+			pad = get_paddle_val();
+
+			/* 回転方向（左マイナス、右プラス）と回転角を検出。 単位サンプリング時間あたり６角以上は６角に丸め
+			   ６角の根拠は、USBキーデータバッファのキーコードサイズが6バイトのため */
+			/* キーコードは USB HID to PS/2 Scan Code Translation Table を参照 */
+			if ( pad < 0 ) {
+				pad = (( pad * -1 ) > 6) ? 6 : ( pad * -1 );				
+				enterkeycode = 0x50; // Right arrow
+			} else if ( pad > 0) {
+				pad = ( pad > 6 ) ? 6 : pad;
+				enterkeycode = 0x4f; // Left arrow					
+			}
+
+			/* 演算で算出したキーコードを、回転角パルス分格納する */
+			for ( i = 0 ; i < pad ; i++ )
+			{
+				KeyboardReport->KeyCode[i] = enterkeycode;	
+			}
+		return true;
 		}
 	}
 	else
@@ -268,15 +293,22 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 		USB_MouseReport_Data_t* MouseReport = (USB_MouseReport_Data_t*)ReportData;
 
 		/* もし、処理が必要なければ return 0; */
-//		if ( KeyEnterStatus == 1 )
 		if ( isUSBDeviceEnable() != 1 )
 		{
+			/* Do nothing. */
 		} else {
-			  MouseReport->X = 100;
-			  MouseReport->Y = 100;
-			  MouseReport->wheel = 1;
-//			} else if ( KeyEnterStatus == 2 ) {
-//			KeyEnterStatus = 0;
+			uint16_t adc;
+
+			/* Y 座標は250固定、X座標は10bit ADC値そのままを入力 */
+//			MouseReport->X = (int8_t)(get_slider_pos & 0x008f ); // debug
+			adc = get_slider_pos();
+
+#ifdef FEATURE_RASPI
+			MouseReport->X = (int16_t)adc - 512;
+#else
+			MouseReport->X = (int16_t)adc;
+#endif
+			MouseReport->Y = 150;
 		}
 
 		*ReportSize = sizeof(USB_MouseReport_Data_t);

@@ -54,8 +54,10 @@ void init_GPIO( void )
 /* USB Device ‚ÌEnable”»’èˆ— */
 bool isUSBDeviceEnable( void )
 {
+	volatile uint8_t data;
 	/* PB6 ‚ª H‚È‚çUSB Device Enable */
-	if ( PB6_IN() != 1 )
+	data = PB6_IN();
+	if ( data != 1 )
 	{
 		return 0;
 	}
