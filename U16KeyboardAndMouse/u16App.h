@@ -4,6 +4,16 @@
 #ifndef __U16APP_H__
 #define __U16APP_H__
 
+#define MEGA2560_PACKETHEADER_SIZE 2
+#define PAYLOAD_SIZE_LENGTH 4
+#define PLAYERS 6
+#define PAYLOAD_SIZE ( MEGA2560_PACKETHEADER_SIZE + PAYLOAD_SIZE_LENGTH + ( PLAYERS * 2 ) )
+
+#define KEY_MAP_RIGHT_ALLOW 0
+#define KEY_MAP_LEFT_ALLOW 1
+#define KEY_MAP_BUTTON 2
+#define KEY_MAP_MAX 3
+
 typedef enum {
 	PARSE_STATE_PREINIT,
 	PARSE_STATE_INIT,
@@ -57,7 +67,8 @@ uint8_t parseReceiveData ( hPipe_t pipe_id );
 uint16_t get_slider_pos( void );
 
 /* パドルの回転方向と回転角を取得する */
-int8_t get_paddle_val ( void );
+int8_t *get_paddle_addr ( void );
+int8_t *get_button_addr ( void );
 
 /* IOポートのチェック処理 */
 // uint8_t pollIOPort ( void );

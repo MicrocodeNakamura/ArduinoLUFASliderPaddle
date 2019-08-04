@@ -7,11 +7,10 @@
 #include "pipe.h"
 #include "u16App.h"
 
-#define MEGA2560_PACKETHEADER_SIZE 2
-
 /* 取得したadc値の保存用変数 */
 static uint16_t adc_pos = 0;
-static int8_t paddle = 0;
+static int8_t paddle[PLAYERS * 2];
+static int8_t button[PLAYERS];
 
 static uint8_t size_err = 0;
 static uint8_t head_err = 0;
@@ -21,20 +20,32 @@ uint16_t get_slider_pos( void )
 	return adc_pos;	
 }
 
-int8_t get_paddle_val ( void )
+int8_t *get_paddle_addr ( void )
 {
-	int8_t dummy = paddle;
-	/* paddle情報は検知割り込みごとに積算され、読み出すたびにリセットされる。 */
-	paddle = 0;
-	return dummy;	
+	/* 受信したpaddleデータのバッファを格納 */
+	return paddle;	
 }
 
-/* UART受信データのパース処理 */
+int8_t *get_button_addr ( void )
+{
+	/* 受信したpaddleデータのバッファを格納 */
+	return button;
+}
+
+/* UART受信データのパース処理 - clitical section */
+/*
+  AA AA
+  [size(0x0000001E) 4]
+  [Player1 keycode 2] [Player2 keycode 2] [Player3 keycode 2]
+  [Player1 keycode 2] [Player1 keycode 2] [Player1 keycode 2]
+  player keycoddeは、PADの回転角数、ボタンの押下（１）の組み合わせ。　PADの回転なし、押下なしの場合は0x00、0x00
+*/
+
 uint8_t parseReceiveData ( hPipe_t pipe_id ) {
-	static parseState_t parseState = PARSE_STATE_INIT;
+	static parseState_t parseState = PARSE_STATE_PREINIT;
 	static uint8_t rest = 0;
 	static uint8_t size[4];
-	static uint8_t payload[7];
+	static uint8_t payload[ PAYLOAD_SIZE ];
 	uint8_t tmp;
 	
 	/* パーサーのイニシャライズ */
@@ -72,8 +83,8 @@ uint8_t parseReceiveData ( hPipe_t pipe_id ) {
 		/* 4 バイトサイズデータ待ち */
 		rest -= getRxDataFromPipe( pipe_id, &size[sizeof(size) - rest], rest);
 		if ( rest == 0 ) {
-			/* サイズ値は0x0d固定 */
-			if ( (size[0] == 0x00) && (size[1] == 0x00) && (size[2] == 0x00) && (size[3] == 0x0d) ){
+			/* サイズ値は PAYLOAD_SIZE 固定 */
+			if ( (size[0] == 0x00) && (size[1] == 0x00) && (size[2] == 0x00) && (size[3] == PAYLOAD_SIZE) ){
 				parseState = PARSE_STATE_PAYLOAD;
 				rest = 7;
 			} else {
@@ -84,15 +95,20 @@ uint8_t parseReceiveData ( hPipe_t pipe_id ) {
 		}
 	/* PAYLOAD部分の受信 */
 	} else if ( parseState == PARSE_STATE_PAYLOAD ) {
-		rest -= getRxDataFromPipe( pipe_id, &payload[sizeof(payload) - rest], rest);
+		uint8_t i;
+		rest -= getRxDataFromPipe( pipe_id, &payload[PAYLOAD_SIZE - rest], rest);
 		if ( rest == 0 ) {
 			/* State を元に戻す */
 			parseState = PARSE_STATE_HEAD;
 			rest = 2;
 			
 			/* build data */
-			paddle += payload[6];
-			adc_pos = ( payload[2] << 8 ) + payload[3];
+			for ( i = 0 ; i < PLAYERS ; i++ ) {
+				paddle[i] += (int8_t)(payload[i*2]);
+				if ( payload[i*2 + 1] != 0 ) {
+					button[i] = 1; /* ボタン押下を検知した */
+				}
+			}
 		}
 	}
 	

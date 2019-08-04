@@ -75,9 +75,13 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
 {
 	/* Use the HID class driver's standard Keyboard report.
-	 *   Max simultaneous keys: 6
+	 *   Max simultaneous keys: 13
 	 */
-	HID_DESCRIPTOR_KEYBOARD(6)
+	HID_DESCRIPTOR_KEYBOARD( 13 )
+
+	/* Note!
+	   You should change #KeyCode# size in structure USB_KeyboardReport_Data_t at
+	   U16KeyboardAndMouse\src\LUFA\LUFA\Drivers\USB\Class\Common\MIDIClassCommon.h  */
 };
 
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall

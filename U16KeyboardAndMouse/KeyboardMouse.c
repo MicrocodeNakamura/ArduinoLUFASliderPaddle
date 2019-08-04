@@ -39,6 +39,19 @@
 #include "u16_scifDriver.h"
 #include "pipe.h"
 #include "u16App.h"
+
+#include "../src/LUFA/LUFA/Drivers/USB/Class/Common/HIDClassCommon.h"
+#include "u16_timerDriver.h"
+
+const uint8_t keycodemap[ PLAYERS ][ KEY_MAP_MAX ] = {
+	{ HID_KEYBOARD_SC_RIGHT_ARROW, HID_KEYBOARD_SC_LEFT_ARROW, HID_KEYBOARD_SC_SPACE,  },
+	{ HID_KEYBOARD_SC_4_AND_DOLLAR, HID_KEYBOARD_SC_5_AND_PERCENTAGE, HID_KEYBOARD_SC_6_AND_CARET,  },
+	{ HID_KEYBOARD_SC_7_AND_AMPERSAND, HID_KEYBOARD_SC_8_AND_ASTERISK, HID_KEYBOARD_SC_9_AND_OPENING_PARENTHESIS,  },
+	{ HID_KEYBOARD_SC_Q, HID_KEYBOARD_SC_W, HID_KEYBOARD_SC_E,  },
+	{ HID_KEYBOARD_SC_R, HID_KEYBOARD_SC_T, HID_KEYBOARD_SC_Y,  },
+	{ HID_KEYBOARD_SC_U, HID_KEYBOARD_SC_I, HID_KEYBOARD_SC_O,  }
+};
+	
 /** Buffer to hold the previously generated Keyboard HID report, for comparison purposes inside the HID class driver. */
 static uint8_t PrevKeyboardHIDReportBuffer[sizeof(USB_KeyboardReport_Data_t)];
 
@@ -110,6 +123,14 @@ static uint8_t txCallback( hPipe_t id, hPipe_t previd, uint16_t data ) {
 	scif_tx_flag = TRUE;
 	return 0;
 }
+
+unsigned mytime = 0;
+void timer_handler( void ) {
+
+	/* Timer 処理関数の呼び出しを記述する。 アプリケーションロジックを書かない。*/
+	mytime++;
+}
+
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */
@@ -122,6 +143,9 @@ int main(void)
 
 	init_work();
 	SetupHardware();
+
+	/* time tick for 1[ms] */
+	init_Timer( &timer_handler, TIMER_CLKDIV_64, 250 );
 	
 	initMainPipe();
 	/* PIPEの受信契機、送信契機検知コールバック関数が引数 */
@@ -147,6 +171,22 @@ int main(void)
 		HID_Device_USBTask(&Keyboard_HID_Interface);
 		HID_Device_USBTask(&Mouse_HID_Interface);
 		USB_USBTask();
+		
+		/* debug */
+#if 0
+#define DEBUG_PLAYER 1
+		{
+			/* タスクループで100msを監視し、バッファにキーコードを書き込む */
+			if ( mytime > 100 ) {
+				int8_t *pad = get_paddle_addr();
+				int8_t *btn = get_button_addr();
+//				pad[DEBUG_PLAYER] = 1;
+//				pad[DEBUG_PLAYER] = -1;
+				btn[DEBUG_PLAYER] = 1;
+				mytime = 0;				
+			}
+		}
+#endif /* FEATURE DEBUG CODE */
 	}
 #else
 	/* USB task was killed. */
@@ -258,6 +298,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 		KeyboardReport->KeyCode[3] = 0x00;
 		KeyboardReport->KeyCode[4] = 0x00;
 		KeyboardReport->KeyCode[5] = 0x00;
+		KeyboardReport->KeyCode[6] = 0x00;
 		if ( isUSBDeviceEnable() != 1 )
 		{
 			return true;
@@ -265,31 +306,47 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 			/* マスタからのUSBキー入力の問い合わせ応答生成処理 */
 			/* もし、処理が必要なければ return 0; */
 			int8_t i;
-			int8_t pad;
+			int8_t idx;			
 			uint8_t enterkeycode;
-			pad = get_paddle_val();
+			int8_t *pad = get_paddle_addr();
+			int8_t *btn = get_button_addr();
 
-			/* 回転方向（左マイナス、右プラス）と回転角を検出。 単位サンプリング時間あたり６角以上は６角に丸め
-			   ６角の根拠は、USBキーデータバッファのキーコードサイズが6バイトのため */
+			/* 回転角１つごとにPlayerに割り当てられたキーコードを出力。　余った部分は0x00でPadding
+			   送信し切れなかったコードは次回USBデータ通信時に送信 */
 			/* キーコードは USB HID to PS/2 Scan Code Translation Table を参照 */
-			if ( pad < 0 ) {
-				pad = (( pad * -1 ) > 6) ? 6 : ( pad * -1 );				
-				enterkeycode = 0x50; // Right arrow
-			} else if ( pad > 0) {
-				pad = ( pad > 6 ) ? 6 : pad;
-				enterkeycode = 0x4f; // Left arrow					
-			}
+			idx = 1;
+			for ( i = 0 ; i < PLAYERS ; i++ ) {
+				if ( pad[i] != 0x00 ) {
+					/* 回転方向のカウントをキー入力に変換する。 蓄積している回転角数をキーコード送出のたびに０に近づける */
+					if ( pad[i] < 0 ) {
+						enterkeycode = keycodemap[ i ][ KEY_MAP_RIGHT_ALLOW ]; // Right arrow
+						pad[i]++;
+					} else  { /* pad[i] > 0 */
+						enterkeycode = keycodemap[ i ][ KEY_MAP_LEFT_ALLOW ]; // Left arrow
+						pad[i]--;						
+					}
+					
+					KeyboardReport->KeyCode[idx] = enterkeycode;
+					idx++;
+				}
 
-			/* 演算で算出したキーコードを、回転角パルス分格納する */
-			for ( i = 0 ; i < pad ; i++ )
-			{
-				KeyboardReport->KeyCode[i] = enterkeycode;	
-			}
+				/* ボタン押下情報を取得し、必要があれば */
+				if ( btn[i] != 0 )
+				{
+					KeyboardReport->KeyCode[idx] = keycodemap[ i ][ KEY_MAP_BUTTON ];
+					idx++;
+					/* 検知したらバッファの内容をクリアする */
+					btn[i] = 0;
+				}
+			} /* idx の値は最大でPLAYERS*2+1。 この値になった時点の書き込みでメモリ破壊 */
+
 		return true;
 		}
 	}
 	else
 	{
+/* 本プロジェクトではマウスの応答はなし */
+#if 0
 		USB_MouseReport_Data_t* MouseReport = (USB_MouseReport_Data_t*)ReportData;
 
 		/* もし、処理が必要なければ return 0; */
@@ -313,6 +370,10 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 
 		*ReportSize = sizeof(USB_MouseReport_Data_t);
 		return true;
+#else /* #if 0 */
+		/* do nothing */
+		return true;
+#endif
 	}
 }
 

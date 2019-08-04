@@ -674,7 +674,7 @@
 			                   *   \c HID_KEYBOARD_MODIFER_* masks).
 			                   */
 			uint8_t Reserved; /**< Reserved for OEM use, always set to 0. */
-			uint8_t KeyCode[6]; /**< Key codes of the currently pressed keys. */
+			uint8_t KeyCode[ 13 ]; /**< Key codes of the currently pressed keys. */
 		} ATTR_PACKED USB_KeyboardReport_Data_t;
 
 		/** Type define for the data type used to store HID report descriptor elements. */

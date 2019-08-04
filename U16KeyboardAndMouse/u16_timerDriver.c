@@ -13,17 +13,12 @@
 #include "u16Driver.h"
 
 static InterruptCallbackHandler timerInt = NULL;
+uint16_t now_time = 0;
 
 /* タイマ割り込みベクタアドレス */
 ISR(TIMER0_COMPA_vect){
 	/* uartRXint is function pointer. */
 	if ( timerInt != NULL ){ timerInt(); }
-}
-
-void timer_handler( void ) {
-	static unsigned time = 0;
-
-	/* Timer 処理関数の呼び出しを記述する。 アプリケーションロジックを書かない。*/
 }
 
 /* 引数にTCCR0A、OCR0Aレジスタの設定値を入力する。　値の設定方法の記述はTBD。　サンプルは1ms単位。 */

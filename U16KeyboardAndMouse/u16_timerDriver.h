@@ -24,4 +24,11 @@
 #define TIMER_CLKDIV_256  (unsigned char)(0x04)
 #define TIMER_CLKDIV_1024 (unsigned char)(0x05)
 
+void init_Timer (
+InterruptCallbackHandler handler ,
+/* you can specify TIMER_CLKDIV_[n] in deviceint.h */
+unsigned char TimerUnitMode ,
+unsigned char time );
+
+
 #endif /* __U16DRIVER_H__ */
