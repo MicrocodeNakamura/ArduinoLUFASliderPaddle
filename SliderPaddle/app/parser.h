@@ -29,6 +29,6 @@ typedef enum {
 /* parserの初期化処理 */
 void initParser( hPipe_t id );
 
-void outputResult ( hPipe_t id, uint16_t *data );
+void outputResult ( hPipe_t id );
 
 #endif /* __PARSER_H__ */

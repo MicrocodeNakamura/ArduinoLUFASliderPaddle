@@ -17,6 +17,9 @@
 #define ADC_CH_B	14
 #define ADC_CH_C	15
 
+/* コントローラーの個数 */
+#define PLAYERS	6
+
 /* event flag */
 #define RX_SIG 0x01	/**< UART 受信イベントシグナル */
 #define TX_SIG 0x02	/**< UART 送信イベントシグナル（未使用） */

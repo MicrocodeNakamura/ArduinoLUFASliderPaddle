@@ -83,7 +83,6 @@ int main(void)
 		static bool_t led = FALSE;
 		static uint8_t ledct = 0;
 
-#if 1
 		if ( timerGetTime() > 30 ) {
 			ledct++;
 			if ( ledct > ledct_max ) {
@@ -96,38 +95,9 @@ int main(void)
 		fire = FALSE;
 		if ( timerGetTime() > 30 ) {
 			timerClearTime();
-			fire = TRUE;		
+			fire = TRUE;		                                                 
 		}
 		ApplicationTask( fire );
 
-#else
-		/* Before USB enumration. Main host is waiting start packet '0xaa' 2 times. */
-		if ( mode == 0 ) {
-		
-			/* Start packet received successfully. Go to check gpio(PB6). */
-			mode = 1;
-			
-		/* Check 'disable enumeration' gpio port. if enabled, go mode enumeration.  */
-		else if ( mode == 1 ) {
-			/* When B6 port(PWM12) low is USB enable.*/
-			if ( ( getGPIO ( IOID_PORT_B ) & BIT6_VAL ) == 0 ) {
-				mode = 2;
-				ledct_max = 5;
-			}
-		}
-		/* Send descriptor information. */
-		else if ( mode == 2 ) {
-			ledct_max = 33;
-		}
-		/* Start main routine. */
-		else if ( mode == 3 ) {
-			fire = FALSE;
-			if ( timerGetTime() > 30 ) {
-				timerClearTime();
-				fire = TRUE;		
-			}
-			ApplicationTask( fire );
-		}
-#endif
     }
 }
