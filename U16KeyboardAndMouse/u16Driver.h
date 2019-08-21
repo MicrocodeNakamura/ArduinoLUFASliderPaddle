@@ -16,7 +16,8 @@ typedef unsigned char bool_t;
 /************************************************************************/
 /* configure area                                                                      */
 /************************************************************************/
-#define PORT_SCAN_TIMING_MS 10
+//#define PORT_SCAN_TIMING_MS 10
+#define PORT_SCAN_TIMING_MS 5
 #undef DEBUG_CHECK_USB_REPORT
 #undef MAIN_TASK_KILL_SWITCH_ENABLE
 

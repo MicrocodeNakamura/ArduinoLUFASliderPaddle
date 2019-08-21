@@ -299,6 +299,12 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 		KeyboardReport->KeyCode[4] = 0x00;
 		KeyboardReport->KeyCode[5] = 0x00;
 		KeyboardReport->KeyCode[6] = 0x00;
+		KeyboardReport->KeyCode[7] = 0x00;
+		KeyboardReport->KeyCode[8] = 0x00;
+		KeyboardReport->KeyCode[9] = 0x00;
+		KeyboardReport->KeyCode[10] = 0x00;
+		KeyboardReport->KeyCode[11] = 0x00;
+		KeyboardReport->KeyCode[12] = 0x00;
 		if ( isUSBDeviceEnable() != 1 )
 		{
 			return true;

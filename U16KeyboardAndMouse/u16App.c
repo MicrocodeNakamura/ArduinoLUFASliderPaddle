@@ -9,7 +9,7 @@
 
 /* 取得したadc値の保存用変数 */
 static uint16_t adc_pos = 0;
-static int8_t paddle[PLAYERS * 2];
+static int8_t paddle[PLAYERS];
 static int8_t button[PLAYERS];
 
 static uint8_t size_err = 0;
@@ -51,7 +51,13 @@ uint8_t parseReceiveData ( hPipe_t pipe_id ) {
 	/* パーサーのイニシャライズ */
 	if ( parseState == PARSE_STATE_PREINIT ) {
 		/* ドライバ等のイニシャライズ */
-		parseState = PARSE_STATE_INIT;
+		uint8_t i;
+		for ( i = 0 ; i < sizeof (payload) ; i++ ) {
+			payload[i] = 0;
+		}
+		/* debug code - 8 keys */
+		payload[5] = 8;
+		parseState = PARSE_STATE_INIT;	
 	} else if ( parseState == PARSE_STATE_INIT ) {
 		parseState = PARSE_STATE_HEAD;
 		/* 次のステートで受信が必要なバイト数（固定値 2） */
@@ -86,7 +92,7 @@ uint8_t parseReceiveData ( hPipe_t pipe_id ) {
 			/* サイズ値は PAYLOAD_SIZE 固定 */
 			if ( (size[0] == 0x00) && (size[1] == 0x00) && (size[2] == 0x00) && (size[3] == PAYLOAD_SIZE) ){
 				parseState = PARSE_STATE_PAYLOAD;
-				rest = 7;
+				rest = KEY_DATA_LENGTH;
 			} else {
 				parseState = PARSE_STATE_HEAD;
 				rest = 2;
@@ -96,11 +102,21 @@ uint8_t parseReceiveData ( hPipe_t pipe_id ) {
 	/* PAYLOAD部分の受信 */
 	} else if ( parseState == PARSE_STATE_PAYLOAD ) {
 		uint8_t i;
-		rest -= getRxDataFromPipe( pipe_id, &payload[PAYLOAD_SIZE - rest], rest);
+		rest -= getRxDataFromPipe( pipe_id, &payload[KEY_DATA_LENGTH - rest], rest);
 		if ( rest == 0 ) {
 			/* State を元に戻す */
 			parseState = PARSE_STATE_HEAD;
 			rest = 2;
+
+/* check code */
+#if 0
+			for ( i = 0 ; i < sizeof (payload) ; i++ ) {
+				if ( payload[i] != 0x00 ) {
+					volatile ix;
+					ix = 0;
+				}
+			}
+#endif
 			
 			/* build data */
 			for ( i = 0 ; i < PLAYERS ; i++ ) {
