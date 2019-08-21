@@ -42,6 +42,8 @@ uint16_t setRingBuffers( ringBuffer_t *ring, uint8_t *data, uint16_t size )
 {
 	uint16_t i;
 	uint8_t *pt;
+
+	disableInterrupt();
 	pt = data;
 	
 	for ( i = 0 ; i < size ; i++ ) {
@@ -50,6 +52,7 @@ uint16_t setRingBuffers( ringBuffer_t *ring, uint8_t *data, uint16_t size )
 		}
 		pt++;
 	}
+	enableInterrupt();
 	return i;
 }
 
@@ -57,6 +60,8 @@ uint16_t getRingBuffers( ringBuffer_t *ring, uint8_t *data, uint16_t size )
 {
 	uint16_t i;
 	uint8_t *pt;
+
+	disableInterrupt();
 	pt = data;
 	
 	for ( i = 0 ; i < size ; i++ ) {
@@ -65,6 +70,7 @@ uint16_t getRingBuffers( ringBuffer_t *ring, uint8_t *data, uint16_t size )
 		}
 		pt++;
 	}
+	enableInterrupt();
 	return i;
 }
 
