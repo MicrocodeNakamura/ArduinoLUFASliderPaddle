@@ -1,0 +1,868 @@
+Archive member included to satisfy reference by file (symbol)
+
+c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+                              service/ringBuffer.o (__udivmodhi4)
+c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+                              C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o (exit)
+c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_tablejump2.o)
+                              driver/gpioDriver.o (__tablejump2__)
+c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+                              driver/scifDriver.o (__do_copy_data)
+c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+                              app/mainApp.o (__do_clear_bss)
+
+Allocating common symbols
+Common symbol       size              file
+
+txPipe              0x1               app/mainApp.o
+rxPipe              0x1               app/mainApp.o
+portmask            0xb               driver/gpioDriver.o
+portpull            0xb               driver/gpioDriver.o
+
+Discarded input sections
+
+ .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ .text          0x00000000        0x0 app/mainApp.o
+ .data          0x00000000        0x0 app/mainApp.o
+ .bss           0x00000000        0x0 app/mainApp.o
+ COMMON         0x00000000        0x2 app/mainApp.o
+ .text          0x00000000        0x0 app/parser.o
+ .data          0x00000000        0x0 app/parser.o
+ .bss           0x00000000        0x0 app/parser.o
+ .text          0x00000000        0x0 driver/adcDriver.o
+ .data          0x00000000        0x0 driver/adcDriver.o
+ .bss           0x00000000        0x0 driver/adcDriver.o
+ .text.setADCResolution
+                0x00000000       0x1e driver/adcDriver.o
+ .text.getADCValue
+                0x00000000       0xa6 driver/adcDriver.o
+ .text          0x00000000        0x0 driver/commonDriver.o
+ .data          0x00000000        0x0 driver/commonDriver.o
+ .bss           0x00000000        0x0 driver/commonDriver.o
+ .text          0x00000000        0x0 driver/gpioDriver.o
+ .data          0x00000000        0x0 driver/gpioDriver.o
+ .bss           0x00000000        0x0 driver/gpioDriver.o
+ .text.getGPIO  0x00000000       0x4e driver/gpioDriver.o
+ .progmem.gcc_sw_table.getGPIO
+                0x00000000       0x16 driver/gpioDriver.o
+ .text          0x00000000        0x0 driver/rotalyencoder.o
+ .data          0x00000000        0x0 driver/rotalyencoder.o
+ .bss           0x00000000        0x0 driver/rotalyencoder.o
+ .text          0x00000000        0x0 driver/scifDriver.o
+ .data          0x00000000        0x0 driver/scifDriver.o
+ .bss           0x00000000        0x0 driver/scifDriver.o
+ .text.registPipeUART
+                0x00000000        0x6 driver/scifDriver.o
+ .text          0x00000000        0x0 driver/timerDriver.o
+ .data          0x00000000        0x0 driver/timerDriver.o
+ .bss           0x00000000        0x0 driver/timerDriver.o
+ .text.timerSuspend
+                0x00000000        0x6 driver/timerDriver.o
+ .text.timerResume
+                0x00000000        0x6 driver/timerDriver.o
+ .text          0x00000000        0x0 main.o
+ .data          0x00000000        0x0 main.o
+ .bss           0x00000000        0x0 main.o
+ .text          0x00000000        0x0 service/pipe.o
+ .data          0x00000000        0x0 service/pipe.o
+ .bss           0x00000000        0x0 service/pipe.o
+ .text.getRxDataFromPipe
+                0x00000000       0x12 service/pipe.o
+ .text.getTxPipeDataSize
+                0x00000000       0x12 service/pipe.o
+ .text.getRxPipeDataSize
+                0x00000000       0x12 service/pipe.o
+ .text          0x00000000        0x0 service/ringBuffer.o
+ .data          0x00000000        0x0 service/ringBuffer.o
+ .bss           0x00000000        0x0 service/ringBuffer.o
+ .text.getRingBufferDataSize
+                0x00000000       0x28 service/ringBuffer.o
+ .text.isRingBufferEmpty
+                0x00000000       0x16 service/ringBuffer.o
+ .text.isRingBufferFull
+                0x00000000       0x22 service/ringBuffer.o
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+ .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_tablejump2.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_tablejump2.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_tablejump2.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_tablejump2.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_tablejump2.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_tablejump2.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_tablejump2.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_tablejump2.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_tablejump2.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00100000         xr
+data             0x00800200         0x0000fe00         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000003         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+user_signatures  0x00850000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800200
+LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+LOAD app/mainApp.o
+LOAD app/parser.o
+LOAD driver/adcDriver.o
+LOAD driver/commonDriver.o
+LOAD driver/gpioDriver.o
+LOAD driver/rotalyencoder.o
+LOAD driver/scifDriver.o
+LOAD driver/timerDriver.o
+LOAD main.o
+LOAD service/pipe.o
+LOAD service/ringBuffer.o
+START GROUP
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a
+END GROUP
+START GROUP
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a
+LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a
+LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6\libatmega2560.a
+END GROUP
+                0x00100000                __TEXT_REGION_LENGTH__ = DEFINED (__TEXT_REGION_LENGTH__)?__TEXT_REGION_LENGTH__:0x100000
+                0x0000fe00                __DATA_REGION_LENGTH__ = DEFINED (__DATA_REGION_LENGTH__)?__DATA_REGION_LENGTH__:0xfe00
+                0x00010000                __EEPROM_REGION_LENGTH__ = DEFINED (__EEPROM_REGION_LENGTH__)?__EEPROM_REGION_LENGTH__:0x10000
+                [0x00000003]                __FUSE_REGION_LENGTH__ = DEFINED (__FUSE_REGION_LENGTH__)?__FUSE_REGION_LENGTH__:0x400
+                0x00000400                __LOCK_REGION_LENGTH__ = DEFINED (__LOCK_REGION_LENGTH__)?__LOCK_REGION_LENGTH__:0x400
+                0x00000400                __SIGNATURE_REGION_LENGTH__ = DEFINED (__SIGNATURE_REGION_LENGTH__)?__SIGNATURE_REGION_LENGTH__:0x400
+                0x00000400                __USER_SIGNATURE_REGION_LENGTH__ = DEFINED (__USER_SIGNATURE_REGION_LENGTH__)?__USER_SIGNATURE_REGION_LENGTH__:0x400
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000      0xd3e
+ *(.vectors)
+ .vectors       0x00000000       0xe4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+                0x00000000                __vector_default
+                0x00000000                __vectors
+ *(.vectors)
+ *(.progmem.gcc*)
+ .progmem.gcc_sw_table.setGPIO
+                0x000000e4       0x16 driver/gpioDriver.o
+ .progmem.gcc_sw_table.setMaskedGPIO
+                0x000000fa       0x16 driver/gpioDriver.o
+ .progmem.gcc_sw_table.setGPIOMODE
+                0x00000110       0x16 driver/gpioDriver.o
+                0x00000126                . = ALIGN (0x2)
+                0x00000126                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000126        0x0 linker stubs
+ *(.trampolines*)
+                0x00000126                __trampolines_end = .
+ *libprintf_flt.a:*(.progmem.data)
+ *libc.a:*(.progmem.data)
+ *(.progmem*)
+                0x00000126                . = ALIGN (0x2)
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000126                __ctors_start = .
+ *(.ctors)
+                0x00000126                __ctors_end = .
+                0x00000126                __dtors_start = .
+ *(.dtors)
+                0x00000126                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000126        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+                0x00000126                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000126       0x10 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000136       0x1a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+                0x00000136                __do_copy_data
+ .init4         0x00000150       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+                0x00000150                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x00000160        0x4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ *(.init9)
+ *(.text)
+ .text          0x00000164        0x2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+                0x00000164                __vector_38
+                0x00000164                __vector_22
+                0x00000164                __vector_28
+                0x00000164                __vector_32
+                0x00000164                __vector_34
+                0x00000164                __vector_24
+                0x00000164                __vector_12
+                0x00000164                __vector_55
+                0x00000164                __vector_46
+                0x00000164                __bad_interrupt
+                0x00000164                __vector_31
+                0x00000164                __vector_35
+                0x00000164                __vector_39
+                0x00000164                __vector_23
+                0x00000164                __vector_30
+                0x00000164                __vector_45
+                0x00000164                __vector_11
+                0x00000164                __vector_54
+                0x00000164                __vector_13
+                0x00000164                __vector_17
+                0x00000164                __vector_19
+                0x00000164                __vector_56
+                0x00000164                __vector_7
+                0x00000164                __vector_49
+                0x00000164                __vector_41
+                0x00000164                __vector_43
+                0x00000164                __vector_27
+                0x00000164                __vector_33
+                0x00000164                __vector_47
+                0x00000164                __vector_52
+                0x00000164                __vector_37
+                0x00000164                __vector_44
+                0x00000164                __vector_51
+                0x00000164                __vector_9
+                0x00000164                __vector_15
+                0x00000164                __vector_36
+                0x00000164                __vector_29
+                0x00000164                __vector_40
+                0x00000164                __vector_8
+                0x00000164                __vector_48
+                0x00000164                __vector_14
+                0x00000164                __vector_53
+                0x00000164                __vector_10
+                0x00000164                __vector_50
+                0x00000164                __vector_16
+                0x00000164                __vector_18
+                0x00000164                __vector_20
+                0x00000164                __vector_42
+                0x00000166                . = ALIGN (0x2)
+ *(.text.*)
+ .text.rxSignal
+                0x00000166        0xe app/mainApp.o
+                0x00000166                rxSignal
+ .text.txSignal
+                0x00000174        0xa app/mainApp.o
+                0x00000174                txSignal
+ .text.initApp  0x0000017e       0x1a app/mainApp.o
+                0x0000017e                initApp
+ .text.ApplicationTask
+                0x00000198       0x26 app/mainApp.o
+                0x00000198                ApplicationTask
+ .text.initParser
+                0x000001be        0x2 app/parser.o
+                0x000001be                initParser
+ .text.outputResult
+                0x000001c0       0x98 app/parser.o
+                0x000001c0                outputResult
+ .text.initADC  0x00000258       0x28 driver/adcDriver.o
+                0x00000258                initADC
+ .text.disableInterrupt
+                0x00000280        0x4 driver/commonDriver.o
+                0x00000280                disableInterrupt
+ .text.enableInterrupt
+                0x00000284        0x4 driver/commonDriver.o
+                0x00000284                enableInterrupt
+ .text.setGPIO  0x00000288       0xce driver/gpioDriver.o
+                0x00000288                setGPIO
+ .text.setMaskedGPIO
+                0x00000356       0xfc driver/gpioDriver.o
+                0x00000356                setMaskedGPIO
+ .text.setGPIOMODE
+                0x00000452      0x10a driver/gpioDriver.o
+                0x00000452                setGPIOMODE
+ .text.initGPIO
+                0x0000055c        0xa driver/gpioDriver.o
+                0x0000055c                initGPIO
+ .text.isrRotary
+                0x00000566       0x24 driver/rotalyencoder.o
+                0x00000566                isrRotary
+ .text.__vector_1
+                0x0000058a       0x54 driver/rotalyencoder.o
+                0x0000058a                __vector_1
+ .text.__vector_2
+                0x000005de       0x54 driver/rotalyencoder.o
+                0x000005de                __vector_2
+ .text.__vector_3
+                0x00000632       0x54 driver/rotalyencoder.o
+                0x00000632                __vector_3
+ .text.__vector_4
+                0x00000686       0x54 driver/rotalyencoder.o
+                0x00000686                __vector_4
+ .text.__vector_5
+                0x000006da       0x54 driver/rotalyencoder.o
+                0x000006da                __vector_5
+ .text.__vector_6
+                0x0000072e       0x54 driver/rotalyencoder.o
+                0x0000072e                __vector_6
+ .text.initRotary
+                0x00000782       0x30 driver/rotalyencoder.o
+                0x00000782                initRotary
+ .text.getRotaryCount
+                0x000007b2       0x1a driver/rotalyencoder.o
+                0x000007b2                getRotaryCount
+ .text.tx_handler
+                0x000007cc       0x34 driver/scifDriver.o
+ .text.rx_handler
+                0x00000800       0x4e driver/scifDriver.o
+ .text.__vector_25
+                0x0000084e       0x5a driver/scifDriver.o
+                0x0000084e                __vector_25
+ .text.__vector_26
+                0x000008a8       0x5a driver/scifDriver.o
+                0x000008a8                __vector_26
+ .text.init_UART
+                0x00000902       0x34 driver/scifDriver.o
+                0x00000902                init_UART
+ .text.uart_write
+                0x00000936        0x8 driver/scifDriver.o
+                0x00000936                uart_write
+ .text.__vector_21
+                0x0000093e       0x5a driver/timerDriver.o
+                0x0000093e                __vector_21
+ .text.timer_handler
+                0x00000998       0x14 driver/timerDriver.o
+                0x00000998                timer_handler
+ .text.init_Timer
+                0x000009ac       0x22 driver/timerDriver.o
+                0x000009ac                init_Timer
+ .text.timerGetTime
+                0x000009ce        0xa driver/timerDriver.o
+                0x000009ce                timerGetTime
+ .text.timerClearTime
+                0x000009d8        0xa driver/timerDriver.o
+                0x000009d8                timerClearTime
+ .text.setLED   0x000009e2       0x16 main.o
+                0x000009e2                setLED
+ .text.main     0x000009f8       0x54 main.o
+                0x000009f8                main
+ .text.initMainPipe
+                0x00000a4c        0xa service/pipe.o
+                0x00000a4c                initMainPipe
+ .text.openDataPipe
+                0x00000a56       0xce service/pipe.o
+                0x00000a56                openDataPipe
+ .text.reqRxPipe
+                0x00000b24       0x42 service/pipe.o
+                0x00000b24                reqRxPipe
+ .text.reqTxPipe
+                0x00000b66       0x36 service/pipe.o
+                0x00000b66                reqTxPipe
+ .text.setTxDataToPipe
+                0x00000b9c       0x16 service/pipe.o
+                0x00000b9c                setTxDataToPipe
+ .text.setRxDataFromPipe
+                0x00000bb2       0x16 service/pipe.o
+                0x00000bb2                setRxDataFromPipe
+ .text.getTxDataFromPipe
+                0x00000bc8       0x10 service/pipe.o
+                0x00000bc8                getTxDataFromPipe
+ .text.initRingBuffer
+                0x00000bd8       0x14 service/ringBuffer.o
+                0x00000bd8                initRingBuffer
+ .text.setRingBuffer
+                0x00000bec       0x44 service/ringBuffer.o
+                0x00000bec                setRingBuffer
+ .text.getRingBuffer
+                0x00000c30       0x38 service/ringBuffer.o
+                0x00000c30                getRingBuffer
+ .text.setRingBuffers
+                0x00000c68       0x4e service/ringBuffer.o
+                0x00000c68                setRingBuffers
+ .text.getRingBuffers
+                0x00000cb6       0x4c service/ringBuffer.o
+                0x00000cb6                getRingBuffers
+ .text.libgcc.div
+                0x00000d02       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodhi4.o)
+                0x00000d02                __udivmodhi4
+ .text.libgcc   0x00000d2a       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_tablejump2.o)
+                0x00000d2a                __tablejump2__
+                0x00000d3a                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00000d3a        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+                0x00000d3a                _exit
+                0x00000d3a                exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00000d3a        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ *(.fini0)
+                0x00000d3e                _etext = .
+
+.data           0x00800200        0x2 load address 0x00000d3e
+                0x00800200                PROVIDE (__data_start, .)
+ *(.data)
+ *(.data*)
+ .data.scif_pipe_id
+                0x00800200        0x1 driver/scifDriver.o
+ *(.gnu.linkonce.d*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.r*)
+                0x00800202                . = ALIGN (0x2)
+ *fill*         0x00800201        0x1 
+                0x00800202                _edata = .
+                0x00800202                PROVIDE (__data_end, .)
+
+.bss            0x00800202      0x2e0
+                0x00800202                PROVIDE (__bss_start, .)
+ *(.bss)
+ *(.bss*)
+ .bss.scifHandle
+                0x00800202        0x1 app/mainApp.o
+ .bss.sig       0x00800203        0x1 app/mainApp.o
+ .bss.outDatas  0x00800204       0x12 app/parser.o
+ .bss.resolution
+                0x00800216       0x10 driver/adcDriver.o
+ .bss.rotalyCount
+                0x00800226        0x6 driver/rotalyencoder.o
+ .bss.readBufferOverflow
+                0x0080022c        0x2 driver/scifDriver.o
+ .bss.uartTXint
+                0x0080022e        0x2 driver/scifDriver.o
+ .bss.uartRXint
+                0x00800230        0x2 driver/scifDriver.o
+ .bss.timerTime
+                0x00800232        0x2 driver/timerDriver.o
+ .bss.timerInt  0x00800234        0x2 driver/timerDriver.o
+ .bss.led.2009  0x00800236        0x1 main.o
+ .bss.ledct.2010
+                0x00800237        0x1 main.o
+ .bss.pipeBuffer
+                0x00800238      0x258 service/pipe.o
+ .bss.pipeMain  0x00800490       0x3c service/pipe.o
+ *(COMMON)
+ COMMON         0x008004cc       0x16 driver/gpioDriver.o
+                0x008004cc                portmask
+                0x008004d7                portpull
+                0x008004e2                PROVIDE (__bss_end, .)
+                0x00000d3e                __data_load_start = LOADADDR (.data)
+                0x00000d40                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008004e2        0x0
+                [!provide]                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                [!provide]                PROVIDE (__noinit_end, .)
+                0x008004e2                _end = .
+                [!provide]                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.user_signatures
+ *(.user_signatures*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x00000000       0x30
+ *(.comment)
+ .comment       0x00000000       0x30 app/mainApp.o
+                                 0x31 (size before relaxing)
+ .comment       0x00000030       0x31 app/parser.o
+ .comment       0x00000030       0x31 driver/adcDriver.o
+ .comment       0x00000030       0x31 driver/commonDriver.o
+ .comment       0x00000030       0x31 driver/gpioDriver.o
+ .comment       0x00000030       0x31 driver/rotalyencoder.o
+ .comment       0x00000030       0x31 driver/scifDriver.o
+ .comment       0x00000030       0x31 driver/timerDriver.o
+ .comment       0x00000030       0x31 main.o
+ .comment       0x00000030       0x31 service/pipe.o
+ .comment       0x00000030       0x31 service/ringBuffer.o
+
+.note.gnu.avr.deviceinfo
+                0x00000000       0x40
+ .note.gnu.avr.deviceinfo
+                0x00000000       0x40 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x2e0
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x38 app/mainApp.o
+ .debug_aranges
+                0x00000038       0x28 app/parser.o
+ .debug_aranges
+                0x00000060       0x30 driver/adcDriver.o
+ .debug_aranges
+                0x00000090       0x28 driver/commonDriver.o
+ .debug_aranges
+                0x000000b8       0x40 driver/gpioDriver.o
+ .debug_aranges
+                0x000000f8       0x60 driver/rotalyencoder.o
+ .debug_aranges
+                0x00000158       0x50 driver/scifDriver.o
+ .debug_aranges
+                0x000001a8       0x50 driver/timerDriver.o
+ .debug_aranges
+                0x000001f8       0x28 main.o
+ .debug_aranges
+                0x00000220       0x68 service/pipe.o
+ .debug_aranges
+                0x00000288       0x58 service/ringBuffer.o
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x00000000     0x29c2
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x00000000      0xbbc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ .debug_info    0x00000bbc      0x263 app/mainApp.o
+ .debug_info    0x00000e1f      0x1e4 app/parser.o
+ .debug_info    0x00001003      0x1d4 driver/adcDriver.o
+ .debug_info    0x000011d7       0x95 driver/commonDriver.o
+ .debug_info    0x0000126c      0x320 driver/gpioDriver.o
+ .debug_info    0x0000158c      0x2c3 driver/rotalyencoder.o
+ .debug_info    0x0000184f      0x261 driver/scifDriver.o
+ .debug_info    0x00001ab0      0x166 driver/timerDriver.o
+ .debug_info    0x00001c16      0x2d6 main.o
+ .debug_info    0x00001eec      0x754 service/pipe.o
+ .debug_info    0x00002640      0x382 service/ringBuffer.o
+
+.debug_abbrev   0x00000000     0x1661
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0xb1a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ .debug_abbrev  0x00000b1a      0x110 app/mainApp.o
+ .debug_abbrev  0x00000c2a      0x121 app/parser.o
+ .debug_abbrev  0x00000d4b       0xfc driver/adcDriver.o
+ .debug_abbrev  0x00000e47       0x44 driver/commonDriver.o
+ .debug_abbrev  0x00000e8b      0x10a driver/gpioDriver.o
+ .debug_abbrev  0x00000f95      0x10b driver/rotalyencoder.o
+ .debug_abbrev  0x000010a0      0x114 driver/scifDriver.o
+ .debug_abbrev  0x000011b4       0xcb driver/timerDriver.o
+ .debug_abbrev  0x0000127f      0x139 main.o
+ .debug_abbrev  0x000013b8      0x17d service/pipe.o
+ .debug_abbrev  0x00001535      0x12c service/ringBuffer.o
+
+.debug_line     0x00000000     0x1409
+ *(.debug_line .debug_line.* .debug_line_end)
+ .debug_line    0x00000000      0x1f9 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ .debug_line    0x000001f9      0x175 app/mainApp.o
+ .debug_line    0x0000036e      0x13c app/parser.o
+ .debug_line    0x000004aa      0x1d4 driver/adcDriver.o
+ .debug_line    0x0000067e       0x62 driver/commonDriver.o
+ .debug_line    0x000006e0      0x22b driver/gpioDriver.o
+ .debug_line    0x0000090b      0x1c0 driver/rotalyencoder.o
+ .debug_line    0x00000acb      0x1cd driver/scifDriver.o
+ .debug_line    0x00000c98      0x189 driver/timerDriver.o
+ .debug_line    0x00000e21      0x1a9 main.o
+ .debug_line    0x00000fca      0x237 service/pipe.o
+ .debug_line    0x00001201      0x208 service/ringBuffer.o
+
+.debug_frame    0x00000000      0x7ec
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x54 app/mainApp.o
+ .debug_frame   0x00000054       0x68 app/parser.o
+ .debug_frame   0x000000bc       0x44 driver/adcDriver.o
+ .debug_frame   0x00000100       0x34 driver/commonDriver.o
+ .debug_frame   0x00000134       0x64 driver/gpioDriver.o
+ .debug_frame   0x00000198      0x25c driver/rotalyencoder.o
+ .debug_frame   0x000003f4      0x134 driver/scifDriver.o
+ .debug_frame   0x00000528       0xcc driver/timerDriver.o
+ .debug_frame   0x000005f4       0x34 main.o
+ .debug_frame   0x00000628       0xd8 service/pipe.o
+ .debug_frame   0x00000700       0xec service/ringBuffer.o
+
+.debug_str      0x00000000      0xbae
+ *(.debug_str)
+ .debug_str     0x00000000      0x3e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ .debug_str     0x000003e6      0x1fa app/mainApp.o
+                                0x238 (size before relaxing)
+ .debug_str     0x000005e0       0x49 app/parser.o
+                                0x1e4 (size before relaxing)
+ .debug_str     0x00000629       0xad driver/adcDriver.o
+                                0x236 (size before relaxing)
+ .debug_str     0x000006d6       0x3a driver/commonDriver.o
+                                0x19d (size before relaxing)
+ .debug_str     0x00000710       0xfa driver/gpioDriver.o
+                                0x273 (size before relaxing)
+ .debug_str     0x0000080a       0x7d driver/rotalyencoder.o
+                                0x228 (size before relaxing)
+ .debug_str     0x00000887       0xcf driver/scifDriver.o
+                                0x276 (size before relaxing)
+ .debug_str     0x00000956       0x85 driver/timerDriver.o
+                                0x21a (size before relaxing)
+ .debug_str     0x000009db       0x28 main.o
+                                0x2c9 (size before relaxing)
+ .debug_str     0x00000a03      0x14d service/pipe.o
+                                0x334 (size before relaxing)
+ .debug_str     0x00000b50       0x5e service/ringBuffer.o
+                                0x238 (size before relaxing)
+
+.debug_loc      0x00000000     0x1f77
+ *(.debug_loc)
+ .debug_loc     0x00000000       0xaa app/mainApp.o
+ .debug_loc     0x000000aa      0x14f app/parser.o
+ .debug_loc     0x000001f9      0x1c0 driver/adcDriver.o
+ .debug_loc     0x000003b9      0x60f driver/gpioDriver.o
+ .debug_loc     0x000009c8      0x691 driver/rotalyencoder.o
+ .debug_loc     0x00001059      0x247 driver/scifDriver.o
+ .debug_loc     0x000012a0      0x100 driver/timerDriver.o
+ .debug_loc     0x000013a0       0x71 main.o
+ .debug_loc     0x00001411      0x5a0 service/pipe.o
+ .debug_loc     0x000019b1      0x5c6 service/ringBuffer.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges   0x00000000      0x230
+ *(.debug_ranges)
+ .debug_ranges  0x00000000       0x28 app/mainApp.o
+ .debug_ranges  0x00000028       0x18 app/parser.o
+ .debug_ranges  0x00000040       0x20 driver/adcDriver.o
+ .debug_ranges  0x00000060       0x18 driver/commonDriver.o
+ .debug_ranges  0x00000078       0x30 driver/gpioDriver.o
+ .debug_ranges  0x000000a8       0x50 driver/rotalyencoder.o
+ .debug_ranges  0x000000f8       0x40 driver/scifDriver.o
+ .debug_ranges  0x00000138       0x40 driver/timerDriver.o
+ .debug_ranges  0x00000178       0x18 main.o
+ .debug_ranges  0x00000190       0x58 service/pipe.o
+ .debug_ranges  0x000001e8       0x48 service/ringBuffer.o
+
+.debug_macro
+ *(.debug_macro)
+OUTPUT(SilderPaddle.elf elf32-avr)
+LOAD linker stubs
